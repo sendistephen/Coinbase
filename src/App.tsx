@@ -1,10 +1,16 @@
-import React from "react";
+import React, { lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+const Navbar = lazy(() => import("./Components/Navbar"));
+const Dashboard = lazy(() => import("./Pages/Dashboard"));
 
-function App() {
+function App(): JSX.Element {
 	return (
-		<div className="App">
-			<h1 className="text-gray-900 text-xl">Just Getting Started!</h1>
-		</div>
+		<BrowserRouter>
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<Dashboard />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
