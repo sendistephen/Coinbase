@@ -5,19 +5,28 @@ import {
 	MenuIcon,
 	XIcon,
 } from "@heroicons/react/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Transition } from "@headlessui/react";
 import Logo from "../logo.png";
+import { handleCurrencurrcyChange } from "../store/Currency/CurrencySlice";
+import { selectCurrency } from "../store";
 
 const Navbar = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
+	const dispatch = useDispatch();
+
+	const onHandleChange = (event) => {
+		dispatch(handleCurrencurrcyChange(event.target.value.toLowerCase()));
+	};
+
 	return (
-		<header className="bg-zinc-200 dark:bg-gray-900">
-			<nav className="container  mx-auto">
-				<div className="flex justify-between  items-center h-16">
-					<div className="px-4 flex space-x-40 items-center">
+		<header className="bg-zinc-200 dark:bg-black">
+			<nav className="container mx-auto">
+				<div className="flex items-center justify-between h-16">
+					<div className="flex items-center px-4 space-x-40">
 						<div className="flex-shrink-0">
-							<img src={Logo} className="h-12 w-12" alt="Coinbase" />
+							<img src={Logo} className="w-12 h-12" alt="Coinbase" />
 						</div>
 						<div className="hidden md:flex md:space-x-4 md:items-center">
 							<NavLink
@@ -37,9 +46,13 @@ const Navbar = (): JSX.Element => {
 						</div>
 						<div className="relative md:hidden">
 							<div className="absolute left-0 top-1">
-								<CurrencyDollarIcon className="h-6 w-6" />
+								<CurrencyDollarIcon className="w-6 h-6" />
 							</div>
-							<select className="select" name="currency" id="currency">
+							<select
+								onChange={onHandleChange}
+								className="select"
+								name="currency"
+								id="currency">
 								<option value="USD">USD</option>
 								<option value="EUR">EUR</option>
 								<option value="BTC">BTC</option>
@@ -50,16 +63,20 @@ const Navbar = (): JSX.Element => {
 						{/* right side */}
 						<div className="flex items-center space-x-6">
 							<div className="relative">
-								<div className="absolute left-0 top-1  pl-2">
-									<SearchIcon className="h-6 w-6 text-gray-400" />
+								<div className="absolute left-0 pl-2 top-1">
+									<SearchIcon className="w-6 h-6 text-gray-400" />
 								</div>
 								<input className="search" type="text" placeholder="Search..." />
 							</div>
 							<div className="relative sm:pr-12">
 								<div className="absolute left-0 top-1">
-									<CurrencyDollarIcon className="h-6 w-6" />
+									<CurrencyDollarIcon className="w-6 h-6" />
 								</div>
-								<select className="select" name="currency" id="currency">
+								<select
+									onChange={onHandleChange}
+									className="select"
+									name="currency"
+									id="currency">
 									<option value="USD">USD</option>
 									<option value="EUR">EUR</option>
 									<option value="BTC">BTC</option>
@@ -69,14 +86,14 @@ const Navbar = (): JSX.Element => {
 					</div>
 
 					{/* Mobile menu */}
-					<div className="px-4 flex md:hidden">
+					<div className="flex px-4 md:hidden">
 						<button onClick={() => setIsOpen(!isOpen)}>
 							<span className="sr-only">Open main menu</span>
 							{/* toggle menu */}
 							{!isOpen ? (
-								<MenuIcon className="h-6 w-6 text-white" />
+								<MenuIcon className="w-6 h-6 text-white" />
 							) : (
-								<XIcon className="h-6 w-6 text-white" />
+								<XIcon className="w-6 h-6 text-white" />
 							)}
 						</button>
 					</div>
@@ -110,7 +127,11 @@ const Navbar = (): JSX.Element => {
 								</NavLink>
 							</div>
 							<div className="px-2">
-								<input className="search mb-5" type="text" placeholder="Search..." />
+								<input
+									className="mb-5 search"
+									type="text"
+									placeholder="Search..."
+								/>
 							</div>
 						</div>
 					)}
