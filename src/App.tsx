@@ -8,6 +8,7 @@ function App(): JSX.Element {
 	return (
 		<BrowserRouter>
 			<Navbar />
+
 			<Routes>
 				<Route path="/" element={<Dashboard />} />
 			</Routes>
