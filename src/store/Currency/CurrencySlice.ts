@@ -1,13 +1,14 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { Action } from "history";
+import { Currency } from "../../interfaces/Currency";
 
-export interface ICurrency {
-	currency: String;
-}
+// export interface InitialState {
+// 	currency: Currency;
+// }
 
-const initialState = {
+const initialState: Currency = {
 	currency: "usd",
-} as ICurrency;
+};
 
 export const handleCurrencurrcyChange = createAction(
 	"currency/change",

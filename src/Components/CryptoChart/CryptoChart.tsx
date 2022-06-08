@@ -12,10 +12,10 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchChartsData } from "../../store/Charts/ChartsSlice";
 import { selectCharts, selectCurrency } from "../../store";
 import { currencyFormat, barChartOptions, lineChartOptions } from "./utils";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 ChartJS.register(
 	CategoryScale,
@@ -30,14 +30,14 @@ ChartJS.register(
 );
 
 const CryptoChart = () => {
-	const dispatch = useDispatch<any>();
-	const { currency } = useSelector(selectCurrency);
-	const { prices, total_volumes, market_caps, loading, error } =
-		useSelector(selectCharts);
-	const dailyPrice: any = prices.map((price) => price[1].toFixed(2));
-	const dailyVolumes = total_volumes.map((volume) => volume[1].toFixed(0));
-
-	const dateLabels = prices.map((price) => {
+	const dispatch = useAppDispatch();
+	const { currency } = useAppSelector(selectCurrency);
+	const {
+		data: { prices, total_volumes },
+	} = useAppSelector(selectCharts);
+	const dailyPrice: any = prices?.map((price) => price[1].toFixed(2));
+	const dailyVolumes = total_volumes?.map((volume) => volume[1].toFixed(0));
+	const dateLabels = prices?.map((price) => {
 		const date = new Date(price[0]).toLocaleString("en-gb", {
 			day: "numeric",
 			month: "2-digit",
@@ -48,7 +48,7 @@ const CryptoChart = () => {
 	const todayPrice = dailyPrice.slice(-1);
 
 	const todayVolumes = dailyVolumes.slice(-1);
-	const [week, month, day, year] = new Date().toString().split(" ");
+	const [month, day, year] = new Date().toString().split(" ");
 
 	//------------------------------------
 
