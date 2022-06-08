@@ -15,3 +15,4 @@ Coinbase is a web app that consumes the CoinGecko’s API to provide crypto data
 ### 2. Global Market data
 
 - As a user, I want to see market data.Here is the [endpoint](https://api.coingecko.com/api/v3/global)
+<img width="625" alt="Coins table" src="https://user-images.githubusercontent.com/51319062/172512370-1c49a8d9-0b6d-4216-a2c2-2a4a18f6869b.png">
