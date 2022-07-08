@@ -85,9 +85,9 @@ const CryptoChart = () => {
 
 	return (
 		<div className="container">
-			<div className="md:space-x-12 md:flex md:justify-between md:items-center">
-				<div className="p-4 rounded-lg md:flex-1 dark:bg-black dark:text-gray-50">
-					<div className="flex flex-col mb-12 space-y-2">
+			<div className="items-center xl:space-x-12 xl:flex xl:justify-between">
+				<div className="p-4 mb-12 rounded-lg md:flex-1 dark:bg-black dark:text-gray-50">
+					<div className="flex flex-col space-y-2">
 						<h1>Price</h1>
 						<h2 className="text-2xl font-extrabold md:text-4xl">
 							{currencyFormat(currency, 2, todayPrice)}
@@ -98,8 +98,8 @@ const CryptoChart = () => {
 					</div>
 					<Line data={lineChartData} options={lineChartOptions} />
 				</div>
-				<div className="p-4 mt-5 rounded-lg md:m-0 md:flex-1 dark:bg-black dark:text-gray-50">
-					<div className="flex flex-col mb-12 space-y-2">
+				<div className="p-4 mb-12 rounded-lg md:flex-1 dark:bg-black dark:text-gray-50">
+					<div className="flex flex-col space-y-2">
 						<h1>Volumes 24h</h1>
 						<h2 className="text-2xl font-extrabold md:text-4xl">
 							{currencyFormat(currency, 0, todayVolumes)}

@@ -68,13 +68,13 @@ const Navbar = (): JSX.Element => {
 								</div>
 								<input className="search" type="text" placeholder="Search..." />
 							</div>
-							<div className="relative sm:pr-12">
+							<div className="relative py-0.5 sm:pr-12">
 								<div className="absolute left-0 top-1">
 									<CurrencyDollarIcon className="w-6 h-6" />
 								</div>
 								<select
 									onChange={onHandleChange}
-									className="select"
+									className="text-sm select"
 									name="currency"
 									id="currency">
 									<option value="USD">USD</option>

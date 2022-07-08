@@ -1,3 +1,4 @@
+import Coins from "../Components/Coins/Coins";
 import CryptoChart from "../Components/CryptoChart/CryptoChart";
 
 function Dashboard() {
@@ -6,6 +7,7 @@ function Dashboard() {
 			<div className="container p-4 mx-auto">
 				<h1 className="my-2 font-bold dark:text-gray-50">BITCOIN OVERVIEW</h1>
 				<CryptoChart />
+				<Coins />
 			</div>
 		</div>
 	);
