@@ -19,8 +19,6 @@ export interface CoinDataResponse {
 	date_added: Date;
 	date_updated: Date;
 	id: string;
-	last_updated: Date;
-	max_supply: number | null;
 	current_price: number;
 	fully_diluted_valuation: number;
 	high_24h: number;
@@ -50,5 +48,5 @@ export interface CoinDataResponse {
 }
 
 export interface CoinsDataResponseJson {
-	data: CoinDataResponse;
+	data: Array<CoinDataResponse>;
 }

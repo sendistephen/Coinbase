@@ -6,7 +6,8 @@ import {
 	XIcon,
 } from "@heroicons/react/solid";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../hooks/hooks";
+
 import { Transition } from "@headlessui/react";
 import Logo from "../logo.png";
 import { handleCurrencurrcyChange } from "../store/Currency/CurrencySlice";
@@ -14,7 +15,7 @@ import { selectCurrency } from "../store";
 
 const Navbar = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const onHandleChange = (event) => {
 		dispatch(handleCurrencurrcyChange(event.target.value.toLowerCase()));
@@ -50,7 +51,7 @@ const Navbar = (): JSX.Element => {
 							</div>
 							<select
 								onChange={onHandleChange}
-								className="select"
+								className="text-xs select"
 								name="currency"
 								id="currency">
 								<option value="USD">USD</option>
