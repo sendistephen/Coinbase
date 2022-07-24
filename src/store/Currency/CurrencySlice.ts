@@ -2,10 +2,6 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import { Action } from "history";
 import { Currency } from "../../interfaces/Currency";
 
-// export interface InitialState {
-// 	currency: Currency;
-// }
-
 const initialState: Currency = {
 	currency: "usd",
 };

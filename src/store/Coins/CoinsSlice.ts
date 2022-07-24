@@ -1,70 +1,52 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
-import {
-	CoinDataResponse,
-	CoinsDataResponseJson,
-} from "../../interfaces/Coins";
-import { fetchCoins } from "../../services/CoinsService";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { CoinDataResponse } from "./../../interfaces/Coins/index";
+import axios from "axios";
 interface InitialState {
-	data: CoinDataResponse;
 	loading: boolean;
-	error: boolean;
-	hasMore: boolean;
+	error: string | null;
+	coins: CoinDataResponse[];
+}
+export interface CoinArgs {
+	currency: string;
 	page: number;
 	perPage: number;
-	currency: string;
 }
+
 const initialState: InitialState = {
-	data: {} as CoinDataResponse,
 	loading: false,
-	error: false,
-	hasMore: true,
-	page: 1,
-	perPage: 10,
-	currency: "usd",
+	error: null,
+	coins: [],
 };
 
-// Define action creators
-export const fetchCoinsData = createAsyncThunk<CoinDataResponse[], void>(
-	"coins/fetchCoinsData",
-	async (_, thunkAPI) => {
-		const {
-			coins: { perPage, page, currency },
-		} = thunkAPI.getState() as RootState;
-		try {
-			return await fetchCoins(currency, perPage, page);
-		} catch (error) {
-			return thunkAPI.rejectWithValue(error);
-		}
+export const fetchCoins = createAsyncThunk<CoinDataResponse[], CoinArgs>(
+	"coins/fetch",
+	async (args) => {
+		const { currency, perPage, page } = args;
+
+		const response = await axios.get<CoinDataResponse[]>(
+			`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${perPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+		);
+		return response.data;
 	}
 );
 
-export const CoinsSlice = createSlice({
+const coinsSlice = createSlice({
 	name: "coins",
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder
-			.addCase(fetchCoinsData.pending, (state) => {
-				state.loading = true;
-				state.error = false;
-				state.hasMore = true;
-			})
-			.addCase(
-				fetchCoinsData.fulfilled,
-				(state, action: PayloadAction<CoinDataResponse[]>) => {
-					state.data[0] = action.payload;
-					state.loading = false;
-					state.error = false;
-					state.hasMore = true;
-				}
-			)
-			.addCase(fetchCoinsData.rejected, (state) => {
-				state.loading = false;
-				state.error = true;
-			});
+		builder.addCase(fetchCoins.pending, (state, action) => {
+			state.loading = true;
+		});
+		builder.addCase(fetchCoins.fulfilled, (state, action) => {
+			state.loading = false;
+			state.coins = state.coins.concat(action.payload);
+		});
+		builder.addCase(fetchCoins.rejected, (state, action) => {
+			state.loading = false;
+			state.error = action.error.message;
+		});
 	},
 });
 
-export default CoinsSlice.reducer;
+export default coinsSlice.reducer;
