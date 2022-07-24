@@ -1,7 +1,16 @@
-import React from "react";
+import Coins from "../Components/Coins/Coins";
+import CryptoChart from "../Components/CryptoChart/CryptoChart";
 
 function Dashboard() {
-	return <div className="container mx-auto p-4">Dashboard</div>;
+	return (
+		<div className="">
+			<div className="container p-4 mx-auto">
+				<h1 className="my-2 font-bold dark:text-gray-50">BITCOIN OVERVIEW</h1>
+				<CryptoChart />
+				<Coins />
+			</div>
+		</div>
+	);
 }
 
 export default Dashboard;
