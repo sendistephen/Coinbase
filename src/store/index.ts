@@ -4,6 +4,7 @@ import { CurrencySlice } from "./Currency/CurrencySlice";
 import GlobalReducer from "./Global/GlobalSlice";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import coinsReducer from "./Coins/CoinsSlice";
+import coinReducer from "./CoinDetails/CoinDetailSlice";
 
 /**
  * Setup the store
@@ -14,6 +15,7 @@ const store = configureStore({
 		currency: CurrencySlice,
 		global: GlobalReducer,
 		coins: coinsReducer,
+		coin: coinReducer,
 	},
 });
 
@@ -31,4 +33,5 @@ export const selectCharts = (state: RootState) => state.charts;
 export const selectCurrency = (state: RootState) => state.currency;
 export const selectGlobal = (state: RootState) => state.global;
 export const selectCoins = (state: RootState) => state.coins;
+export const selectCoin = (state: RootState) => state.coin;
 export default store;

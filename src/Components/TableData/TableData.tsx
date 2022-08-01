@@ -1,4 +1,5 @@
 import millify from "millify";
+import { Link } from "react-router-dom";
 import { CoinDataResponse } from "../../interfaces/Coins";
 import { currencyFormat } from "../CryptoChart/utils";
 import { SparklineChart } from "./TableChart";
@@ -24,9 +25,11 @@ function TableData(props: TableDataProps) {
 				<div className="flex items-center justify-between">
 					<div className="flex items-center">
 						<img className="w-6 h-6" src={props.coin?.image} alt="coin logo" />
-						<span className="px-3 py-3 text-sm font-bold text-left text-white">
+						<Link
+							to={`/coins/${props.coin?.name}`}
+							className="px-3 py-3 text-sm font-bold text-left text-white hover:text-green-500">
 							{props.coin?.name}
-						</span>
+						</Link>
 					</div>
 					<span className="font-normal text-left text-gray-400 uppercase">
 						{props.coin?.symbol}
