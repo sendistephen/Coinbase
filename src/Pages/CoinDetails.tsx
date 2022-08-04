@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
+import { CoinPriceChart } from "../Components/CoinPriceChart";
 import { currencyFormat } from "../Components/CryptoChart/utils";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { selectCoin, selectCurrency } from "../store";
+import { selectCharts, selectCoin, selectCurrency } from "../store";
 import { fetchCoinDetails } from "../store/CoinDetails/CoinDetailSlice";
 
 function CoinDetails() {
@@ -11,13 +12,25 @@ function CoinDetails() {
 	const data = useAppSelector(selectCoin);
 	const { currency } = useAppSelector(selectCurrency);
 
+	const {
+		data: { prices },
+	} = useAppSelector(selectCharts);
+
+	const dataLabels = prices?.map((price) => {
+		const date = new Date(price[0]).toLocaleString("en-gb", {
+			day: "numeric",
+			month: "2-digit",
+		});
+		return date;
+	});
+	const dailyPrice = prices?.map((price) => parseInt(price[1].toFixed(2)));
+
 	const coin = coinname.toLowerCase();
 
 	useEffect(() => {
 		dispatch(fetchCoinDetails({ coin }));
 	}, [coin, dispatch]);
 
-	console.log(data);
 	return (
 		<div className="container p-4 mx-auto">
 			<div className="flex space-x-8">
@@ -173,11 +186,12 @@ function CoinDetails() {
 				/>
 			</div>
 			{/* Price chart */}
-			<div className="flex flex-col my-16 space-y-4">
-				<h3 className="text-2xl text-white">
-					{data?.coin?.name} Price Chart ({currency.toLocaleUpperCase()})
-				</h3>
-			</div>
+			<CoinPriceChart
+				data={data}
+				dataLabels={dataLabels}
+				dailyPrices={dailyPrice}
+				currency={currency}
+			/>
 		</div>
 	);
 }

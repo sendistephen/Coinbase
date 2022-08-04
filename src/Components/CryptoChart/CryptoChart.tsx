@@ -80,7 +80,12 @@ const CryptoChart = () => {
 	};
 
 	useEffect(() => {
-		dispatch(fetchChartsData());
+		dispatch(
+			fetchChartsData({
+				coin: "bitcoin",
+				duration: "30",
+			})
+		);
 	}, [currency, dispatch]);
 
 	return (

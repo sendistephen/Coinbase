@@ -26,7 +26,7 @@ function TableData(props: TableDataProps) {
 					<div className="flex items-center">
 						<img className="w-6 h-6" src={props.coin?.image} alt="coin logo" />
 						<Link
-							to={`/coins/${props.coin?.name}`}
+							to={`/coins/${props.coin?.id}`}
 							className="px-3 py-3 text-sm font-bold text-left text-white hover:text-green-500">
 							{props.coin?.name}
 						</Link>
