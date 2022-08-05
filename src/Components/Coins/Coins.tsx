@@ -7,7 +7,7 @@ import TableData from "../TableData/TableData";
 
 function Coins() {
 	const [page, setPage] = React.useState(1);
-	const { coins, loading } = useAppSelector(selectCoins);
+	const { coins } = useAppSelector(selectCoins);
 
 	const dispatch = useAppDispatch();
 	const { currency } = useAppSelector(selectCurrency);

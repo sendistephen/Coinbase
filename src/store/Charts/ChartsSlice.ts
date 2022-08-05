@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { RootState } from "..";
 import { CoinMarketChartResponseJson } from "../../interfaces/Coins";
-import { fetchCharts } from "../../services/chartsService";
 
 interface InitialState {
 	data: CoinMarketChartResponseJson;
@@ -18,18 +18,25 @@ const initialState: InitialState = {
 	error: false,
 };
 
+interface ChartArgs {
+	coin: string;
+	duration: string;
+}
+
 export const fetchChartsData = createAsyncThunk<
 	CoinMarketChartResponseJson,
-	void
->("charts/fetchCharts", async (_, thunkAPI) => {
+	ChartArgs,
+	{}
+>("charts/fetchCharts", async (data, { getState }) => {
+	const { coin, duration } = data;
 	const {
 		currency: { currency },
-	} = thunkAPI.getState() as RootState;
-	try {
-		return await fetchCharts(currency as string);
-	} catch (error) {
-		return thunkAPI.rejectWithValue(error);
-	}
+	} = getState() as RootState;
+
+	const response = await axios.get<CoinMarketChartResponseJson>(
+		`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currency}&days=${duration}&interval=daily`
+	);
+	return response.data;
 });
 
 export const ChartsSlice = createSlice({
@@ -42,14 +49,11 @@ export const ChartsSlice = createSlice({
 				state.loading = true;
 				state.error = false;
 			})
-			.addCase(
-				fetchChartsData.fulfilled,
-				(state, action: PayloadAction<CoinMarketChartResponseJson>) => {
-					state.loading = false;
-					state.error = false;
-					state.data = action.payload;
-				}
-			)
+			.addCase(fetchChartsData.fulfilled, (state, action) => {
+				state.loading = false;
+				state.error = false;
+				state.data = action.payload;
+			})
 			.addCase(fetchChartsData.rejected, (state) => {
 				state.loading = false;
 				state.error = true;
