@@ -157,7 +157,7 @@ export const CoinPriceChart: FunctionComponent<CoinPriceChartProps> = (
 				{Object.keys(dateRangeObject).map((key) => (
 					<div key={key} className="space-x-4">
 						<input
-							className="form-input"
+							className="w-8 h-8 text-green-600 border-2 border-green-600 rounded-full form-radio focus:outline-none focus:border-green-600 checked:bg-green-600 checked:border-4 checked:border-green-800 checked:hover:bg-emerald-300 checked:text-green-600 focus:text-green-600"
 							type="radio"
 							id="key"
 							name="dateRange"
