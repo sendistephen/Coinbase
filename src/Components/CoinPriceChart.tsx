@@ -102,8 +102,8 @@ export const CoinPriceChart: FunctionComponent<CoinPriceChartProps> = (
 			{
 				data: props.dailyPrices.slice(0, -2),
 				fill: true,
-				backgroundColor: "rgba(255,0,0,0.2)",
-				borderColor: "rgba(255, 99, 132, 1)",
+				backgroundColor: "#22ff0033",
+				borderColor: "#6dff63",
 				tension: 0.1,
 			},
 		],

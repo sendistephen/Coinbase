@@ -37,13 +37,13 @@ const Navbar = (): JSX.Element => {
 								}>
 								Coins
 							</NavLink>
-							<NavLink
+							{/* <NavLink
 								to="/portfolio"
 								className={({ isActive }) =>
 									isActive ? "active-link" : "inactive-link"
 								}>
 								Portfolio
-							</NavLink>
+							</NavLink> */}
 						</div>
 						<div className="relative md:hidden">
 							<div className="absolute left-0 top-1">

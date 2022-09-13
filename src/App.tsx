@@ -8,7 +8,7 @@ const Dashboard = lazy(() => import("./Pages/Dashboard"));
 
 function App(): JSX.Element {
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={<div></div>}>
 			<BrowserRouter>
 				<Navbar />
 				<div className="bg-zinc-200 dark:bg-zinc-900">
