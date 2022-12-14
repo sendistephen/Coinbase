@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { CurrencyDollarIcon, SearchIcon, MenuIcon, XIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
-import { useAppDispatch } from '../hooks/hooks';
+import { useAppDispatch } from '../hooks';
 
 import { Transition } from '@headlessui/react';
 import Logo from '../logo.png';
@@ -29,9 +29,9 @@ const Navbar = (): JSX.Element => {
 			<nav className='container mx-auto'>
 				<div className='flex items-center justify-between h-16'>
 					<div className='grid items-center grid-cols-3 gap-4 lg:flex lg:space-x-40'>
-						<div className='flex-shrink-0'>
+						<Link to='/' className='flex-shrink-0'>
 							<img src={Logo} className='w-12 ' alt='Coinbase' />
-						</div>
+						</Link>
 						<div className='hidden md:flex md:space-x-4 md:items-center'>
 							<NavLink
 								to='/'

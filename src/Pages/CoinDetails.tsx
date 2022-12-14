@@ -1,35 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
 import { CoinPriceChart } from '../Components/CoinPriceChart';
 import { currencyFormat } from '../Components/CryptoChart/utils';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { selectCharts, selectCoin, selectCurrency } from '../store';
-import { fetchCoinDetails } from '../store/CoinDetails/CoinDetailSlice';
+import Spinner from '../Components/Spinner';
+import { useAppSelector } from '../hooks';
+import useCoinChartData from '../hooks/useCoinChartData';
+import { selectCoin, selectCurrency } from '../store';
 
 function CoinDetails() {
 	const { coinname } = useParams();
-	const dispatch = useAppDispatch();
 	const data = useAppSelector(selectCoin);
 	const { currency } = useAppSelector(selectCurrency);
 
-	const {
-		data: { prices },
-	} = useAppSelector(selectCharts);
+	const [dataLabels, dailyPrice] = useCoinChartData(coinname);
 
-	const dataLabels = prices?.map((price) => {
-		const date = new Date(price[0]).toLocaleString('en-gb', {
-			day: 'numeric',
-			month: '2-digit',
-		});
-		return date;
-	});
-	const dailyPrice = prices?.map((price) => parseInt(price[1].toFixed(2)));
-
-	const coin = coinname.toLowerCase();
-
-	useEffect(() => {
-		dispatch(fetchCoinDetails({ coin }));
-	}, [coin, dispatch]);
+	if (data.loading) return <Spinner />;
 
 	return (
 		<div className='container p-4 mx-auto'>
@@ -154,8 +139,8 @@ function CoinDetails() {
 			{/* Price chart */}
 			<CoinPriceChart
 				data={data}
-				dataLabels={dataLabels}
-				dailyPrices={dailyPrice}
+				dataLabels={dataLabels as string[]}
+				dailyPrices={dailyPrice as number[]}
 				currency={currency}
 			/>
 		</div>

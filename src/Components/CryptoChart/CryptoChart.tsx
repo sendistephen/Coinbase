@@ -15,7 +15,7 @@ import {
 import { fetchChartsData } from '../../store/Charts/ChartsSlice';
 import { selectCharts, selectCurrency } from '../../store';
 import { currencyFormat, barChartOptions, lineChartOptions } from './utils';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 ChartJS.register(
 	CategoryScale,

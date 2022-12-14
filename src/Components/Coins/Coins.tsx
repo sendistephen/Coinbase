@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectCoins, selectCurrency } from '../../store';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchCoins } from '../../store/Coins/CoinsSlice';
 import TableData from '../TableData/TableData';
 import { CoinDataResponse } from '../../interfaces/Coins';
+import Spinner from '../Spinner';
 
 /**
  *
@@ -84,7 +85,11 @@ function Coins() {
 				dataLength={coins.length}
 				next={fetchMore}
 				hasMore={true}
-				loader={<h4 className='py-5 text-center text-blue-400'>Loading...</h4>}
+				loader={
+					<h4 className='py-5 text-center text-blue-400'>
+						<Spinner />
+					</h4>
+				}
 				endMessage={
 					<p className='text-center text-blue-400'>You have reached the end of the list</p>
 				}>
