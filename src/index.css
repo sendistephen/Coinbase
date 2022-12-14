@@ -4,16 +4,16 @@
 
 @layer base {
 	.active-link {
-		@apply dark:bg-gray-600 text-white font-medium px-6 py-2 rounded text-sm;
+		@apply dark:bg-gray-900 text-white font-medium px-6 py-2 rounded text-sm;
 	}
 	.active-link:hover {
-		@apply dark:bg-gray-700;
+		@apply dark:bg-gray-900;
 	}
 	.inactive-link {
 		@apply text-white font-medium text-sm;
 	}
 	.search {
-		@apply pl-10 py-1 rounded text-gray-700 placeholder:text-sm placeholder:text-gray-400 dark:focus:outline-none  dark:focus:border-none dark:focus:z-10;
+		@apply pl-10 py-1 bg-gray-50  text-gray-700 font-light rounded text-sm ring-0 placeholder:text-sm placeholder:text-gray-400 dark:focus:outline-none dark:focus:border-none dark:focus:z-10 dark:focus:ring-0;
 	}
 	.select {
 		@apply pl-6 py-1 bg-gray-100 rounded  dark:focus:outline-none dark:focus:border-none dark:focus:z-10;
