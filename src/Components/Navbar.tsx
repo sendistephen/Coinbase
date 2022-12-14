@@ -8,10 +8,19 @@ import Logo from '../logo.png';
 import { handleCurrencurrcyChange } from '../store/Currency/CurrencySlice';
 
 const Navbar = (): JSX.Element => {
+	// Initialize a state variable isOpen with a value of false.
 	const [isOpen, setIsOpen] = useState(false);
+
+	// Define `useAppDispatch` hook to create a dispatch function for dispatching Redux actions.
 	const dispatch = useAppDispatch();
 
-	const onHandleChange = (event) => {
+	/**
+	 * The onHandleChange function is passed to an event handler and is
+	 * used to dispatch a Redux action when the event is triggered.
+	 * The function gets the value of the event target and converts
+	 * it to lowercase before dispatching the action.
+	 */
+	const onHandleChange = (event: { target: { value: string } }) => {
 		dispatch(handleCurrencurrcyChange(event.target.value.toLowerCase()));
 	};
 

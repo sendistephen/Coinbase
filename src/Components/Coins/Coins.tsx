@@ -43,14 +43,18 @@ function Table({ coins, currency }) {
 }
 
 function Coins() {
+	/**
+	 * Initialize the page state variable and set its initial value to 1,
+	 * and also defines a function setPage for updating its value.
+	 * */
 	const [page, setPage] = React.useState(1);
-	const { coins } = useAppSelector(selectCoins);
 
 	/**
 	 * Gets the coins and currency data from the Redux store using the `useAppSelector` hook,
 	 * which is a custom hook for selecting data from the store.
 	 *  */
 	const dispatch = useAppDispatch();
+	const { coins } = useAppSelector(selectCoins);
 	const { currency } = useAppSelector(selectCurrency);
 
 	/**
